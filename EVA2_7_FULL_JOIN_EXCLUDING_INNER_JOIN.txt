@@ -1,0 +1,45 @@
+use evaluacion_2;
+select from tabla_a a
+	left join tabla_b b 
+    on a.nombre = b.nombre;
+    
+select from tabla_a a
+	right join tabla_b b 
+    on a.nombre = b.nombre;
+    
+select from tabla_a a
+	right join tabla_b b 
+    on a.nombre = b.nombre 
+    where a.nombre is null;
+    
+select from tabla_a a
+	left join tabla_b b 
+    on a.nombre = b.nombre 
+    where b.nombre is null;
+    
+
+select from tabla_a a
+	right join tabla_b b 
+    on a.nombre = b.nombre 
+    where a.nombre is null
+		union
+select from tabla_a a
+	left join tabla_b b 
+    on a.nombre = b.nombre 
+    where b.nombre is null;
+    
+
+use northwind
+
+select a.productID, b.companyname 
+	from orders a     
+	right outer join customers b 
+		on a.CustomerID = b.CustomerID 
+		where a.productID is null 
+			union
+select a.productID, b.companyname 
+	from orders a     
+	left outer join customers b 
+		on a.CustomerID = b.CustomerID 
+		where b.productID	 is null 
+			group by a.orderID;

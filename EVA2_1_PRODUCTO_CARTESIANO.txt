@@ -1,0 +1,366 @@
+Enter password: *******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.11 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database evaluacion_2;
+Query OK, 1 row affected (0.13 sec)
+
+mysql> \use evaluacion_2
+ERROR 1049 (42000): Unknown database 'se'
+mysql>
+mysql> use evaluacion_2;
+Database changed
+mysql> create table A(
+    -> nombre varchar(45));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> create table B( nombre varchar(45));
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> show tables;
++------------------------+
+| Tables_in_evaluacion_2 |
++------------------------+
+| a                      |
+| b                      |
++------------------------+
+2 rows in set (0.01 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'nombre ('1'),('2'),('3'),('4'),('5')' at line 1
+mysql> insert into A nombre values ('1'),('2'),('3'),('4'),('5');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'nombre values ('1'),('2'),('3'),('4'),('5')' at line 1
+mysql> insert into A  values ('1'),('2'),('3'),('4'),('5');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql>  insert into b values ('A'), ('B'), ('C'), ('D'), ('E');
+Query OK, 5 rows affected (0.10 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from a;
++--------+
+| nombre |
++--------+
+| 1      |
+| 2      |
+| 3      |
+| 4      |
+| 5      |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from b;
++--------+
+| nombre |
++--------+
+| A      |
+| B      |
+| C      |
+| D      |
+| E      |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from a,b;
++--------+--------+
+| nombre | nombre |
++--------+--------+
+| 1      | A      |
+| 2      | A      |
+| 3      | A      |
+| 4      | A      |
+| 5      | A      |
+| 1      | B      |
+| 2      | B      |
+| 3      | B      |
+| 4      | B      |
+| 5      | B      |
+| 1      | C      |
+| 2      | C      |
+| 3      | C      |
+| 4      | C      |
+| 5      | C      |
+| 1      | D      |
+| 2      | D      |
+| 3      | D      |
+| 4      | D      |
+| 5      | D      |
+| 1      | E      |
+| 2      | E      |
+| 3      | E      |
+| 4      | E      |
+| 5      | E      |
++--------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select * from b,a;
++--------+--------+
+| nombre | nombre |
++--------+--------+
+| A      | 1      |
+| B      | 1      |
+| C      | 1      |
+| D      | 1      |
+| E      | 1      |
+| A      | 2      |
+| B      | 2      |
+| C      | 2      |
+| D      | 2      |
+| E      | 2      |
+| A      | 3      |
+| B      | 3      |
+| C      | 3      |
+| D      | 3      |
+| E      | 3      |
+| A      | 4      |
+| B      | 4      |
+| C      | 4      |
+| D      | 4      |
+| E      | 4      |
+| A      | 5      |
+| B      | 5      |
+| C      | 5      |
+| D      | 5      |
+| E      | 5      |
++--------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select a.nombre, b.nombre from a,b;
++--------+--------+
+| nombre | nombre |
++--------+--------+
+| 1      | A      |
+| 2      | A      |
+| 3      | A      |
+| 4      | A      |
+| 5      | A      |
+| 1      | B      |
+| 2      | B      |
+| 3      | B      |
+| 4      | B      |
+| 5      | B      |
+| 1      | C      |
+| 2      | C      |
+| 3      | C      |
+| 4      | C      |
+| 5      | C      |
+| 1      | D      |
+| 2      | D      |
+| 3      | D      |
+| 4      | D      |
+| 5      | D      |
+| 1      | E      |
+| 2      | E      |
+| 3      | E      |
+| 4      | E      |
+| 5      | E      |
++--------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select * from a,b order by a.nombre;
++--------+--------+
+| nombre | nombre |
++--------+--------+
+| 1      | A      |
+| 1      | B      |
+| 1      | C      |
+| 1      | D      |
+| 1      | E      |
+| 2      | A      |
+| 2      | B      |
+| 2      | C      |
+| 2      | D      |
+| 2      | E      |
+| 3      | A      |
+| 3      | B      |
+| 3      | C      |
+| 3      | D      |
+| 3      | E      |
+| 4      | A      |
+| 4      | B      |
+| 4      | C      |
+| 4      | D      |
+| 4      | E      |
+| 5      | A      |
+| 5      | B      |
+| 5      | C      |
+| 5      | D      |
+| 5      | E      |
++--------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select * from a,b order by a.nombre, b.nombre;
++--------+--------+
+| nombre | nombre |
++--------+--------+
+| 1      | A      |
+| 1      | B      |
+| 1      | C      |
+| 1      | D      |
+| 1      | E      |
+| 2      | A      |
+| 2      | B      |
+| 2      | C      |
+| 2      | D      |
+| 2      | E      |
+| 3      | A      |
+| 3      | B      |
+| 3      | C      |
+| 3      | D      |
+| 3      | E      |
+| 4      | A      |
+| 4      | B      |
+| 4      | C      |
+| 4      | D      |
+| 4      | E      |
+| 5      | A      |
+| 5      | B      |
+| 5      | C      |
+| 5      | D      |
+| 5      | E      |
++--------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select * from b,a order by b.nombre, a.nombre;
++--------+--------+
+| nombre | nombre |
++--------+--------+
+| A      | 1      |
+| A      | 2      |
+| A      | 3      |
+| A      | 4      |
+| A      | 5      |
+| B      | 1      |
+| B      | 2      |
+| B      | 3      |
+| B      | 4      |
+| B      | 5      |
+| C      | 1      |
+| C      | 2      |
+| C      | 3      |
+| C      | 4      |
+| C      | 5      |
+| D      | 1      |
+| D      | 2      |
+| D      | 3      |
+| D      | 4      |
+| D      | 5      |
+| E      | 1      |
+| E      | 2      |
+| E      | 3      |
+| E      | 4      |
+| E      | 5      |
++--------+--------+
+25 rows in set (0.00 sec)
+
+mysql> select b.nombre as Nombre_B, a.nombre as Nombre_A from b,a order by b.nombre, a.nombre;
++----------+----------+
+| Nombre_B | Nombre_A |
++----------+----------+
+| A        | 1        |
+| A        | 2        |
+| A        | 3        |
+| A        | 4        |
+| A        | 5        |
+| B        | 1        |
+| B        | 2        |
+| B        | 3        |
+| B        | 4        |
+| B        | 5        |
+| C        | 1        |
+| C        | 2        |
+| C        | 3        |
+| C        | 4        |
+| C        | 5        |
+| D        | 1        |
+| D        | 2        |
+| D        | 3        |
+| D        | 4        |
+| D        | 5        |
+| E        | 1        |
+| E        | 2        |
+| E        | 3        |
+| E        | 4        |
+| E        | 5        |
++----------+----------+
+25 rows in set (0.00 sec)
+
+mysql> select TABLA_B.nombre as Nombre_B, TABLA_A.nombre as Nombre_A from b TABLA_B, a TABLA_A order by TABLA_B.nombre, TABLA_A.nombre;
++----------+----------+
+| Nombre_B | Nombre_A |
++----------+----------+
+| A        | 1        |
+| A        | 2        |
+| A        | 3        |
+| A        | 4        |
+| A        | 5        |
+| B        | 1        |
+| B        | 2        |
+| B        | 3        |
+| B        | 4        |
+| B        | 5        |
+| C        | 1        |
+| C        | 2        |
+| C        | 3        |
+| C        | 4        |
+| C        | 5        |
+| D        | 1        |
+| D        | 2        |
+| D        | 3        |
+| D        | 4        |
+| D        | 5        |
+| E        | 1        |
+| E        | 2        |
+| E        | 3        |
+| E        | 4        |
+| E        | 5        |
++----------+----------+
+25 rows in set (0.00 sec)
+
+mysql> select * from A mitabla_a;
++--------+
+| nombre |
++--------+
+| 1      |
+| 2      |
+| 3      |
+| 4      |
+| 5      |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from A mitabla_a ;
++--------+
+| nombre |
++--------+
+| 1      |
+| 2      |
+| 3      |
+| 4      |
+| 5      |
++--------+
+5 rows in set (0.00 sec)
+
+mysql> select mitabla_a.nombre from A mitabla_a ;
++--------+
+| nombre |
++--------+
+| 1      |
+| 2      |
+| 3      |
+| 4      |
+| 5      |
++--------+
+5 rows in set (0.00 sec)
+
+mysql>
+

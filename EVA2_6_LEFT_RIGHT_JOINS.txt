@@ -1,0 +1,57 @@
+use evaluacion_2;
+CREATE TABLE `evaluacion_2`.`aa` (id int not null, nombre varchar(5));
+CREATE TABLE `evaluacion_2`.`bb` (id int not null, nombre varchar(5));
+desc aa;
+desc bb;
+select * 
+	from aa a 
+    inner join bb b 
+    on a.nombre = b.nombre;
+select * 
+	from aa a 
+	left outer join  bb b 
+    on a.nombre = b.nombre;
+select * 
+	from aa a 
+    right outer join  bb b 
+    on a.nombre = b.nombre;
+
+select * 
+	from aa a 
+    left outer join bb b 
+    on a.nombre = b.nombre 
+    where bb.nombre is null;
+select * 
+	from aa a 
+    right outer join bb b 
+    on a.nombre = b.nombre 
+    where aa.nombre is null;
+
+use northwind;
+show tables;
+
+select a.orderID, b.companyname 
+	from orders a 
+    right outer join customers b 
+	on a.CustomerID = b.CustomerID 
+    group by a.orderID;
+
+select a.orderID, b.companyname 
+	from orders a 
+    left outer join customers b 
+	on a.CustomerID = b.CustomerID 
+    group by a.orderID;
+    
+select a.orderID, b.companyname 
+	from orders a 
+    right outer join customers b 
+	on a.CustomerID = b.CustomerID 
+    where a.orderID is null 
+    group by a.orderID;
+
+select b.productname 
+	from orderdetails a 
+    right outer join producto b 
+    on a.productid = b.productid
+    where a.productid is null
+    order by b.productid;

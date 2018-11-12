@@ -1,0 +1,142 @@
+MySQL Shell 8.0.11
+
+Copyright (c) 2016, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+
+
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+
+ MySQL  SQL > \connect -c root@localhost
+The -c option is deprecated, please use --mysql or -mc instead
+Creating a Classic session to 'root@localhost'
+Enter password: *******
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 17
+Server version: 8.0.11 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| employees          |
+| evaluacion_2       |
+| information_schema |
+| mysql              |
+| northwind          |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+9 rows in set (0.0010 sec)
+
+ MySQL  localhost:3306 ssl  SQL > use northwind
+Default schema set to `northwind`.
+Fetching table and column names from `northwind` for auto-completion... Press ^C to stop.
+
+ MySQL  localhost:3306 ssl  northwind  SQL > show tables;
++-----------------------------+
+| Tables_in_northwind         |
++-----------------------------+
+| customers                   |
+| employee_privileges         |
+| employees                   |
+| inventory_transaction_types |
+| inventory_transactions      |
+| invoices                    |
+| order_details               |
+| order_details_status        |
+| orders                      |
+| orders_status               |
+| orders_tax_status           |
+| privileges                  |
+| products                    |
+| purchase_order_details      |
+| purchase_order_status       |
+| purchase_orders             |
+| sales_reports               |
+| shippers                    |
+| strings                     |
+| suppliers                   |
++-----------------------------+
+20 rows in set (0.0020 sec)
+
+ MySQL  localhost:3306 ssl  northwind  SQL > show tables;
++-----------------------------+
+| Tables_in_northwind         |
++-----------------------------+
+| customers                   |
+| employee_privileges         |
+| employees                   |
+| inventory_transaction_types |
+| inventory_transactions      |
+| invoices                    |
+| order_details               |
+| order_details_status        |
+| orders                      |
+| orders_status               |
+| orders_tax_status           |
+| privileges                  |
+| products                    |
+| purchase_order_details      |
+| purchase_order_status       |
+| purchase_orders             |
+| sales_reports               |
+| shippers                    |
+| strings                     |
+| suppliers                   |
++-----------------------------+
+20 rows in set (0.0022 sec)
+
+ MySQL  localhost:3306 ssl  northwind  SQL > desc orders;
++----------------------+---------------+------+-----+-------------------+----------------+
+| Field                | Type          | Null | Key | Default           | Extra          |
++----------------------+---------------+------+-----+-------------------+----------------+
+| id                   | int(11)       | NO   | PRI | NULL              | auto_increment |
+| employee_id          | int(11)       | YES  | MUL | NULL              |                |
+| customer_id          | int(11)       | YES  | MUL | NULL              |                |
+| order_date           | datetime      | NO   |     | CURRENT_TIMESTAMP |                |
+| shipped_date         | datetime      | YES  |     | NULL              |                |
+| shipper_id           | int(11)       | YES  | MUL | NULL              |                |
+| ship_name            | varchar(50)   | YES  |     | NULL              |                |
+| ship_address         | longtext      | YES  |     | NULL              |                |
+| ship_city            | varchar(50)   | YES  |     | NULL              |                |
+| ship_state_province  | varchar(50)   | YES  |     | NULL              |                |
+| ship_zip_postal_code | varchar(50)   | YES  | MUL | NULL              |                |
+| ship_country_region  | varchar(50)   | YES  |     | NULL              |                |
+| shipping_fee         | decimal(19,4) | YES  |     | 0.0000            |                |
+| taxes                | decimal(19,4) | YES  |     | 0.0000            |                |
+| payment_type         | varchar(50)   | YES  |     | NULL              |                |
+| paid_date            | datetime      | YES  |     | NULL              |                |
+| notes                | longtext      | YES  |     | NULL              |                |
+| tax_rate             | double        | YES  |     | 0                 |                |
+| tax_status_id        | tinyint(4)    | YES  | MUL | NULL              |                |
+| status_id            | tinyint(4)    | YES  | MUL | 0                 |                |
++----------------------+---------------+------+-----+-------------------+----------------+
+20 rows in set (0.0027 sec)
+                                             
+ MySQL  localhost:3306 ssl  northwind  SQL > desc order_details;
++-------------------+---------------+------+-----+---------+----------------+
+| Field             | Type          | Null | Key | Default | Extra          |
++-------------------+---------------+------+-----+---------+----------------+
+| id                | int(11)       | NO   | PRI | NULL    | auto_increment |
+| order_id          | int(11)       | NO   | MUL | NULL    |                |
+| product_id        | int(11)       | YES  | MUL | NULL    |                |
+| quantity          | decimal(18,4) | NO   |     | 0.0000  |                |
+| unit_price        | decimal(19,4) | YES  |     | 0.0000  |                |
+| discount          | double        | NO   |     | 0       |                |
+| status_id         | int(11)       | YES  | MUL | NULL    |                |
+| date_allocated    | datetime      | YES  |     | NULL    |                |
+| purchase_order_id | int(11)       | YES  | MUL | NULL    |                |
+| inventory_id      | int(11)       | YES  | MUL | NULL    |                |
++-------------------+---------------+------+-----+---------+----------------+
+10 rows in set (0.0029 sec)
+
+ MySQL  localhost:3306 ssl  northwind  SQL >

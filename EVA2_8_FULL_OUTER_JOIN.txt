@@ -1,0 +1,56 @@
+use evaluacion_2;
+
+select * from aa a 
+    
+	inner join bb b 
+    
+	on a.nombre = b.nombre
+		
+		union all 
+
+select * from aa a 
+	
+	left outer join  bb b 
+    
+	on a.nombre = b.nombre
+		union all
+select * from aa a 
+    right outer join  bb b 
+    on a.nombre = b.nombre;
+    
+select * from aa a 
+	inner join bb b
+	on a.nombre = b.nombre;
+select * from aa a 
+	left join bb b
+	on a.nombre = b.nombre
+		where b.nombre is null;
+select * from aa a 
+	left join bb b
+	on a.nombre = b.nombre
+		where a.nombre is null;
+        
+select * from aa a 
+	left join bb b
+	on a.nombre = b.nombre
+		union all
+select * from aa a
+	right join bb b
+	on a.nombre = b.nombre
+		where a.nombre is null;
+        
+        
+
+use northwind;
+
+select a.orderID, b.companyname, b.customerID
+	from orders a     
+	right outer join customers b 
+		on a.CustomerID = b.CustomerID 
+			union all
+select a.orderID, b.companyname, b.customerID
+	from orders a     
+	left outer join customers b 
+		on a.CustomerID = b.CustomerID 
+		where b.orderID	 is null 
+			group by a.orderID;

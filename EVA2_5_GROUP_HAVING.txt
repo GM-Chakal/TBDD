@@ -1,0 +1,37 @@
+//Workbench
+use northwind;
+show tables;
+select * from products;
+select id, product_name from products;
+select distinct(id) from products;
+select b.product_name, sum(a.unitprice * a.quantity) as subtotal from purchase_order_detail a inner join  products b on a.productid = productid
+select sum(quantity * unitprice) from orderdetails;
+select b.productname, sum(a.unitprice * a.quantity) as total from orderdetails a inner join products b on a.productid = b.productid;
+select b.productname, (a.unitprice * a.quantity) as total from orderdetails a inner join products b on a.productid = b.productid;
+select producid from products where productname like 'chai';
+select productname from products where productid = 1;
+select sum(quantity * unitprice) from orderdetails where productid = 1;
+select c.companyname, sum(a.unitprice * a.quantity) as total 
+	from orderdetails a 
+    inner join orders b on a.orderid = b.orderid
+    inner join customers c on b.customerid = c.customerid
+    group by b.customerid;
+    
+select c.companyname, sum(a.unitprice * a.quantity) as total 
+	from orderdetails a 
+    inner join orders b on a.orderid = b.orderid
+    inner join customers c on b.customerid = c.customerid
+    group by b.customerid having sum(a.unitprice * a.quantity)>10000;
+    
+select c.companyname, sum(a.unitprice * a.quantity) as total 
+	from orderdetails a 
+    inner join orders b on a.orderid = b.orderid
+    inner join customers c on b.customerid = c.customerid
+    group by b.customerid having total>10000;
+	
+select b.productname, sum(a.unitprice * a.quantity) as total 
+	from orderdetails a 
+		inner join products b 
+        on a.productid = b.productid 
+	group by b.productid 
+    having total>10000;
