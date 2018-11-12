@@ -1,0 +1,13 @@
+SELECT a.productname, 
+       sum(b.quantity) as total
+
+		FROM products a
+ 
+    			INNER JOIN order_details b 
+				ON a.productid = b.productid
+
+     		GROUP BY  a.productid
+
+     		ORDER BY total desc
+    
+		limit 1;

@@ -1,0 +1,16 @@
+SELECT customerid, 
+       sum(c.unitprice * c.quantity) AS total
+
+		FROM customers a
+    
+    		INNER JOIN orders b 
+				ON a.customerid = b.customerid
+    
+    		INNER JOIN order_details c 
+				ON b.orderid = c.orderid
+
+        	GROUP BY  a.customerid
+ 
+		ORDER BY total DESC
+ 
+		limit 1;

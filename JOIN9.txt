@@ -1,0 +1,12 @@
+
+SELECT a.companyname, 
+       (b.unitsinstock + b.unitsonorder) as total 
+		FROM suppliers a
+
+			INNER JOIN products b 
+				ON a.supplierid = b.supplierid
+
+		GROUP BY  a.companyname
+
+        	ORDER BY total asc
+;

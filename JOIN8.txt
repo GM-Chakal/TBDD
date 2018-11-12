@@ -1,0 +1,17 @@
+SELECT a.firstname,  
+       a.lastname , 
+       count(*) as total  
+		FROM employees a
+
+
+   			INNER JOIN orders b 
+				ON a.employeeid = b.employeeid
+
+
+		GROUP BY  a.employeeid
+
+
+		ORDER BY total asc
+
+
+		limit 1;
