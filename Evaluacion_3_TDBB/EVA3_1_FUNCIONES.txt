@@ -1,0 +1,19 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `suma_numeros`(num1 int, num2 int) RETURNS int(11)
+BEGIN
+	declare suma int;
+    set suma = num1 + num2;
+
+	RETURN suma;
+END
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `cuenta_clientes`() RETURNS int(11)
+BEGIN
+	declare cont int
+    select count(*) into cont from customers
+    return cont;
+END
+use eva3;
+select suma_numeros(6, 4) as suma;
+
+use northwind;
+select cuenta_clientes();

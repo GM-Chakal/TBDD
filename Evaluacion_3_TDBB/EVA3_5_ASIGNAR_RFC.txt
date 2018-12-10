@@ -1,0 +1,34 @@
+CREATE FUNCTION `asignar_rfc` ()
+RETURNS INTEGER
+BEGIN
+	declare nombre text;
+    declare ap_pat text;
+    declare ap_mat text;
+    declare fecha_naci date;
+    declare employee_id text;
+    declare rfc_t text
+	
+    declare fin_cursor int default false; #cuando llega al final, cambiar a true
+
+    declare cursor_employees cursor for
+		SELECT EmployeeID,FirstName,LastName,BirthDate FROM duplicado_employees;
+
+    declare continue handler for not found set fin_cursor = true;
+    
+    set ap_mat = '';
+    open cursor_employees;
+    ciclo_cursor: loop
+        fetch cursor_employees into employee_id,nombre,ap_pat,fecha_naci;
+        if fin_cursor then
+			leave ciclo_cursor;
+		else 
+			set rfc_t = generar_rfc(nombre,ap_pat,ap_mat,fecha_naci);
+            UPDATE duplicado_employees SET RFC = rfc_t 
+            WHERE EmployeeID = employee_id;
+		end if;
+    end loop;
+    
+    close cursor_employees;
+    
+RETURN 1;
+END

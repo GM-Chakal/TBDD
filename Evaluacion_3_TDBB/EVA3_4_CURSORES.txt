@@ -1,0 +1,31 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `contar_clientes_funcion`() RETURNS int(11)
+BEGIN
+
+	declare conteo int;
+    declare customer_id text;
+    declare fin_cursor int default false;
+    declare cursor_clientes cursor for
+		select customerid from customers;
+	declare continue handler for not found
+    set fin_cursor = true;
+    set conteo=0;
+    open cursor_clientes;
+    ciclo_cursor:loop
+		fetch cursor_clientes into customer_id;
+        if fin_cursor then
+			leave ciclo_cursor;
+		else
+			insert into temp_customer values(customer_id)
+			set conteo = conteo +1;
+		end if;
+    end loop;
+    close cursor_clientes;
+
+RETURN conteo;
+END
+use northwind;
+select contar_clientes_funcion;
+create table temp_customer(id varchar(5));
+desc temp_customer;
+select contar_clientes_funcion;
+select * from temp_customer;

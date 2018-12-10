@@ -1,0 +1,43 @@
+CREATE DEFINER=`root`@`localhost` FUNCTION `sumatoria`(num int) RETURNS int(11)
+BEGIN
+	declare sumatoria int;
+    set sumatoria = 0;
+		suma_loop: loop
+			if num > 0 then
+				set sumatoria = sumatoria + num;
+                set num= num-1;
+            end if;
+            iterate suma_loop;
+		end loop suma_loop;
+
+RETURN sumatoria;
+END
+CREATE FUNCTION `no_selects` ()
+RETURNS INTEGER
+BEGIN
+	select * from temp;
+RETURN 1;
+END
+CREATE FUNCTION `cuenta_ordenes` (customer_id varchar(5))
+RETURNS INTEGER
+BEGIN
+	declare cont int;
+    select count(*) into cont
+    from orders
+    where customerid = customer_id;
+
+RETURN cont;
+END
+use eva3;
+select sumatoria(10);
+create table temp(nombre varchar(5));
+insert into temp values('A'),('B'),('C');
+select * from temp;
+use northwind;
+select count (*) from orders where customerID = 'ANATR';
+select customerid, companyname, sumatoria(5) as ejemplo from customers;
+select cuenta_ordenes(ANATR);
+select cuenta_ordenes(WELLI);
+select cusromerid, companyname, cuenta_ordenes(customerid) from customers
+
+total_orders que sume order-orderdetails usando inner join mostrando cuanto a gastado cada sujeto

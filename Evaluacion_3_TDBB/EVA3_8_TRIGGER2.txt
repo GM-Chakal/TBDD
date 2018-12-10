@@ -1,0 +1,59 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `eva3`.`ventas_AFTER_INSERT` AFTER INSERT ON `ventas` FOR EACH ROW
+BEGIN
+
+	declare gana double;
+    set gana = new.total_venta - new.precio_neto;
+	insert into ganancias(id,ganancia) values (new.id,gana);
+
+END
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `eva3`.`ventas_AFTER_UPDATE` AFTER UPDATE ON `ventas` FOR EACH ROW
+BEGIN
+
+	declare gana double;
+    set gana = new.total_venta - new.precio_neto;
+    update ganancias
+    set ganancia = gana
+    where id = old.id;
+
+END
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `eva3`.`ventas_AFTER_DELETE` AFTER DELETE ON `ventas` FOR EACH ROW
+BEGIN
+
+	delete from ganancias
+		where id = old.id;
+
+END
+
+create database eva3;
+use eva3;
+create table ventas
+	(
+		id int primary key not null auto_increment,
+        total_venta double,
+        precio_neto double
+    );
+insert into ventas
+	(
+		total_venta,
+        precio_neto
+    ) values 
+    (
+		10000,
+        5000
+    );
+    create table ganancias
+	(
+		id int primary key not null auto_increment,
+        ganancia double
+    );
+
+update ventas set total_venta = 1234
+where id=3;
+
+delete from ventas where id=2;
+    
+select * from ventas;
+select * from ganancias;
+

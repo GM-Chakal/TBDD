@@ -1,0 +1,66 @@
+CREATE DEFINER=`root`@`localhost` TRIGGER `eva3`.`empleados_BEFORE_INSERT` BEFORE INSERT ON `empleados` FOR EACH ROW
+BEGIN
+	IF NEW.salario < 10000 THEN
+		#signal exception
+		SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Paga mas tacaño';
+    END IF;
+
+	SET NEW.rfc = obten_rfc(NEW.nombre,NEW.apellido,NEW.apellido_mat,NEW.fecha);
+END
+
+CREATE DEFINER = CURRENT_USER TRIGGER `eva3`.`empleados_AFTER_INSERT` AFTER INSERT ON `empleados` FOR EACH ROW
+BEGIN
+	DECLARE total_sal int;
+    SELECT SUM(salario) INTO total_sal;
+    FROM empleados;
+    UPDATE salarios
+    SET total_salarios = total_sal;
+END
+
+CREATE DATABASE eva3;
+
+USE eva3;
+
+CREATE TABLE empleados(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(50),
+    apellido VARCHAR(50),
+    fecha DATE,
+    salario INT,
+    rfc VARCHAR(13));
+    
+DESC empleados;
+
+ALTER TABLE empleados ADD apellido_mat VARCHAR(50) AFTER apellido;
+
+#despues del trigger
+
+INSERT INTO empleados(
+	nombre,
+    apellido,
+    apellido_mat,
+    fecha,
+    salario) VALUES(
+    'juan',
+    'perez',
+    'jolote',
+    '1980-11-12',
+    1000);
+
+select * from empleados;
+
+#despues del trigger de salario
+
+INSERT INTO empleados(
+	nombre,
+    apellido,
+    apellido_mat,
+    fecha,
+    salario) VALUES(
+    'juan',
+    'perez',
+    'jolote',
+    '1980-11-12',
+    100000);
+
+CREATE TABLE salarios (total_salarios int);
